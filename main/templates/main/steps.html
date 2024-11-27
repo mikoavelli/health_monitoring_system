@@ -1,0 +1,69 @@
+{% extends 'main/heath.html' %}
+
+{% block title %}Шаги{% endblock %}
+
+
+{% block health-content %}
+    <h1>Шаги</h1>
+
+    <!-- Выбор временного промежутка -->
+    <form method="get" style="margin-bottom: 20px;">
+        <label>
+            <input type="radio" name="range" value="day" {% if time_range == 'day' %}checked{% endif %}>
+            День
+        </label>
+        <label>
+            <input type="radio" name="range" value="week" {% if time_range == 'week' %}checked{% endif %}>
+            Неделя
+        </label>
+        <button type="submit">Применить</button>
+    </form>
+
+    <div>
+        <h3>Общее количество шагов за {{ time_range }}: {{ total_steps }}</h3>
+        <h3>Общее калорий шагов за {{ time_range }}: {{ total_calories }}</h3>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <div style="background-color: #e0e0e0; width: 100%; height: 30px; border-radius: 5px; overflow: hidden; position: relative;">
+            <div style="background-color: #76c7c0; width: {{ progress_percentage }}%; height: 100%; transition: width 0.5s;"></div>
+        </div>
+        {% if time_range == 'week' %}
+            <p style="text-align: center; margin-top: 10px;">
+                {{ total_steps }}/70000 шагов
+            </p>
+        {% else %}
+            <p style="text-align: center; margin-top: 10px;">
+                {{ total_steps }}/10000 шагов
+            </p>
+        {% endif %}
+    </div>
+
+    <!-- Гистограмма -->
+    <canvas id="stepsChart" width="400" height="200"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('stepsChart').getContext('2d');
+        const stepsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ labels|safe }},
+                datasets: [{
+                    label: 'Количество шагов',
+                    data: {{ values|safe }},
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
