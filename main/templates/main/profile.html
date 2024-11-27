@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+    <div style="text-align: center; margin-top: 20px;">
+        <!-- Аватар пользователя -->
+        {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="Аватар"
+                 style="border-radius: 50%; width: 150px; height: 150px;">
+        {% else %}
+            <img src="{% static 'profile/default.jpg' %}" alt="Аватар"
+                 style="border-radius: 50%; width: 150px; height: 150px;">
+        {% endif %}
+
+        <h2><strong>Ник пользователя:</strong> {{ profile.user.username }}</h2>
+        <p><strong>Пол:</strong> {{ profile.gender }}</p>
+        <p><strong>Дата рождения:</strong> {{ profile.birthdate }}</p>
+        <p><strong>Телефон:</strong> {{ profile.phone }}</p>
+        <p><strong>Email:</strong> {{ profile.email }}</p>
+
+        <p><strong>Шаги:</strong> {{ total_steps }}</p>
+        <p><strong>Калории:</strong> {{ total_calories }}</p>
+        <p><strong>Дистанция:</strong> {{ total_distance }}</p>
+
+        <!-- Кнопки -->
+        <div style="margin-top: 20px;">
+            <a href="{% url 'edit_profile' %}" class="btn">Редактировать профиль</a>
+        </div>
+        <br>
+        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">Выйти</button>
+        </form>
+
+
+    </div>
+{% endblock %}

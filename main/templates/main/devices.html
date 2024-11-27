@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Устройства{% endblock %}
+
+{% block content %}
+    <div class="container" style="text-align: center; margin-top: 20px;">
+        <h1>Ваши устройства</h1>
+        <p>Добавляйте и синхронизируйте устройства для мониторинга вашего здоровья.</p>
+
+        <div class="devices-list" style="margin-top: 30px;">
+            {% if devices %}
+                {% for device in devices %}
+                    <div class="device-card"
+                         style="border: 1px solid #ddd; border-radius: 10px; padding: 20px; margin: 10px auto; max-width: 400px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                        <h2 style="margin-bottom: 10px;">{{ device.device_name }}</h2>
+                        <p><strong>Тип устройства:</strong> {{ device.device_type }}</p>
+                        <p><strong>Последняя синхронизация:</strong> {{ device.last_import_date|date:"d M Y, H:i" }}</p>
+                        <form action="{% url 'sync_device' device.id %}" method="post" style="margin-top: 15px;">
+                            {% csrf_token %}
+                            <button type="submit"
+                                    style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                                Синхронизировать
+                            </button>
+                        </form>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>У вас нет подключенных устройств.</p>
+            {% endif %}
+        </div>
+
+        <!-- Кнопка добавления устройства -->
+        <div style="margin-top: 30px;">
+            <a href="{% url 'add_device' %}"
+               style="background-color: #007BFF; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Добавить
+                устройство</a>
+        </div>
+    </div>
+{% endblock %}

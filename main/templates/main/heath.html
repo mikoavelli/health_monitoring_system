@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Здоровье{% endblock %}
+
+{% block content %}
+    <h1>Ваше здоровье</h1>
+    <p>Здесь вы сможете отслеживать ваши персональные показатели.</p>
+
+    <div class="buttons-container">
+        <a href="{% url 'movements' %}" class="btn">Движения</a>
+        <a href="{% url 'standups' %}" class="btn">Вставания</a>
+        <a href="{% url 'steps' %}" class="btn">Шаги</a>
+    </div>
+
+    <div class="health-content">
+        {% block health-content %}{% endblock %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}HealthApp{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        nav .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav .nav-links a:hover {
+            background-color: #0056b3;
+        }
+
+        .content {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Стили для кнопок */
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="nav-links">
+        <a href={% url 'home' %}>HealthApp</a></div>
+    <div class="nav-links">
+        <a href="{% url 'health' %}">Здоровье</a>
+        <a href="{% url 'devices' %}">Устройства</a>
+        <a href="{% url 'profile' %}">Профиль</a>
+    </div>
+</nav>
+
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

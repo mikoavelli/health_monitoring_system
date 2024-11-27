@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Добавить устройство{% endblock %}
+
+{% block content %}
+    <h1>Добавить устройство</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="device_name">Название устройства:</label>
+        <input type="text" id="device_name" name="device_name" required>
+        <br>
+        <label for="device_type">Тип устройства:</label>
+        <input type="text" id="device_type" name="device_type" required>
+        <br>
+        <button type="submit">Добавить</button>
+    </form>
+{% endblock %}
